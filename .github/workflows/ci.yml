@@ -1,4 +1,4 @@
-name: CI Test
+name: CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main, master ]
 
 jobs:
-  test:
+  check-files:
     runs-on: ubuntu-latest
     
     steps:
@@ -19,6 +19,16 @@ jobs:
       
     - name: Check files
       run: ls -la
+
+  print-info:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
       
     - name: Print date
       run: date
+      
+    - name: Print environment
+      run: echo "Running on $RUNNER_OS"

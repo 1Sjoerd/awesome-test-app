@@ -5,6 +5,7 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch: # Enables manual triggering
 
 jobs:
   check-files:
@@ -32,3 +33,20 @@ jobs:
       
     - name: Print environment
       run: echo "Running on $RUNNER_OS"
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' # Only runs when manually triggered
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Start deployment
+      run: echo "🚀 Starting deployment..."
+      
+    - name: Simulate deployment
+      run: |
+        echo "Deploying to production..."
+        sleep 2
+        echo "Deployment completed! ✅"
